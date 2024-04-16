@@ -1,8 +1,5 @@
 <template>
-  <nav>
-    <router-link to="/dashboard">Dashboard</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+
   <router-view/>
 </template>
 
@@ -15,6 +12,10 @@
   color: #2c3e50;
 }
 
+*{
+  padding:0px;
+  margin: 0px;
+}
 nav {
   padding: 30px;
 

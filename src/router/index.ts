@@ -1,7 +1,13 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
+import Login from '../components/Login/index.vue';
 
 const routes: Array<RouteRecordRaw> = [
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
+  },
   {
     path: '/',
     name: 'home',
@@ -11,7 +17,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         name: '/dashboard',
         path: '/dashboard',
-        component: () => import(/* webpackChunkName: "about" */ '../views/dash.vue'),
+        component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue'),
         meta: {
           title: 'Dashboard',
         },

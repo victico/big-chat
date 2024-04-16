@@ -10,7 +10,9 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "useDefineForClassFields": true,
+    "strictNullChecks": false,
     "sourceMap": true,
+    "useUnknownInCatchVariables": false,
     "baseUrl": ".",
     "types": [
       "webpack-env"
