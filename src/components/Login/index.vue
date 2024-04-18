@@ -269,7 +269,8 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, onMounted } from 'vue';
+import firebase from '@/firebase';
 
 export default defineComponent({
   setup() {
@@ -285,6 +286,9 @@ export default defineComponent({
         console.log(error.message);
       }
     };
+    onMounted(() => {
+      console.log(firebase);
+    });
     return {
       selectedCountry,
       phoneCode,
