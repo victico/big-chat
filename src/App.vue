@@ -15,6 +15,18 @@
 *{
   padding:0px;
   margin: 0px;
+  font-family: "Noto Sans TC", sans-serif;
+  color: white;
+  letter-spacing: 0.05em;
+  box-sizing:border-box;
+}
+input, input:focus{
+  outline: none;
+  border:0px;
+}
+select, select:focus{
+  outline: none;
+  border:0px;
 }
 nav {
   padding: 30px;
