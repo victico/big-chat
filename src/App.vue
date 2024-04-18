@@ -5,7 +5,7 @@
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -15,18 +15,20 @@
 *{
   padding:0px;
   margin: 0px;
-  font-family: "Noto Sans TC", sans-serif;
+  font-family: "Poppins", sans-serif;
   color: white;
-  letter-spacing: 0.05em;
   box-sizing:border-box;
+  font-weight: 200;
 }
 input, input:focus{
   outline: none;
   border:0px;
+  font-weight: 500;
 }
 select, select:focus{
   outline: none;
   border:0px;
+  font-weight: 500;
 }
 nav {
   padding: 30px;

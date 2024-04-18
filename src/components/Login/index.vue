@@ -302,12 +302,12 @@ export default defineComponent({
     justify-content: center;
   }
   .phonecode{
-    width: 22%!important;
+    width: 25%!important;
     padding:12px 15px!important;
   }
   .phone_number{
     margin-left: -15px ;
-    width: 73%!important;
+    width: 70%!important;
     padding:12px 15px!important;
     padding-left: 5px!important;
   }
@@ -331,7 +331,8 @@ export default defineComponent({
   .principal-text__description{
     margin-top: 20px;
     & > h3{
-      color: #80808070;
+      color: rgb(117 117 117 / 64%);
+      font-weight: 300;
     }
   }
   .logo-content{
@@ -352,7 +353,7 @@ export default defineComponent({
         width: 70%;
         border-radius: 7px;
         color: black;
-        font-size:18px;
+        font-size:15px;
         box-shadow: 0px;
       }
       & select{
@@ -360,7 +361,7 @@ export default defineComponent({
         padding: 12px;
         border-radius: 7px;
         color: black;
-        font-size:18px;
+        font-size:15px;
         box-shadow: 0px;
       }
       & option {
