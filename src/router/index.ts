@@ -1,12 +1,18 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import Login from '../components/Login/index.vue';
+import validateCode from '../components/Login/codeValidate.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     name: 'Login',
     component: Login,
+  },
+  {
+    path: '/validate-code',
+    name: 'validate-code',
+    component: validateCode,
   },
   {
     path: '/',

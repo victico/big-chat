@@ -256,11 +256,12 @@
           <div class="input-container__content d-flex justify-center">
             <label for="phone"></label>
             <input type="text" class="phonecode" v-model="phoneCode">
-            <input type="text" id="phone" class="phone_number">
+            <input type="text" id="phone" class="phone_number" v-model="phoneNumber" >
           </div>
         </div>
         <div class="button-container">
-          <button>
+          <div id="sign-in-button"></div>
+          <button @click="loginWithPhoneNumber()">
             Ingresar
           </button>
         </div>
@@ -271,11 +272,15 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
 import firebase from '@/firebase';
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   setup() {
-    const selectedCountry = ref('VE');
-    const phoneCode = ref('+58');
+    const router = useRouter();
+    const selectedCountry = ref<string>('VE');
+    const phoneCode = ref<string>('+58');
+    const phoneNumber = ref<string>('4126069512');
     const searchCode = async (): Promise<void> => {
       try {
         const response: any = await fetch(`https://restcountries.com/v3.1/alpha/${selectedCountry.value}`);
@@ -286,13 +291,30 @@ export default defineComponent({
         console.log(error.message);
       }
     };
+    const loginWithPhoneNumber = async (): Promise<void> => {
+      try {
+        const loginPhoneNumber = `${phoneCode.value}${phoneNumber.value}`;
+        const appVerifier = window.recaptchaVerifier;
+        const result = await signInWithPhoneNumber(firebase.auth, loginPhoneNumber, appVerifier);
+        if (result) {
+          window.confirmationResult = result;
+          router.push('/validate-code');
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
     onMounted(() => {
-      console.log(firebase);
+      window.recaptchaVerifier = new RecaptchaVerifier(firebase.auth, 'sign-in-button', {
+        size: 'invisible',
+      });
     });
     return {
       selectedCountry,
       phoneCode,
+      phoneNumber,
       searchCode,
+      loginWithPhoneNumber,
     };
   },
   name: 'LoginComponent',
@@ -384,10 +406,17 @@ export default defineComponent({
       font-size: 15px;
       text-transform: uppercase;
       border: none;
+      font-weight: 400;
       cursor: pointer;
+      transition: all ease-in 0.2s;
       &:focus{
         outline: none;
       }
+      &:active{
+        background: rgb(37, 1, 83);
+        transform: rotateX(180deg);
+      }
     }
   }
+
 </style>

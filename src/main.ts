@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import Storage from './plugins/Storage';
+import firebase from './firebase';
 
 createApp(App)
   .use(store)
