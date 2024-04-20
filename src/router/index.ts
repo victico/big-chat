@@ -1,29 +1,45 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
 import Login from '../components/Login/index.vue';
 import validateCode from '../components/Login/codeValidate.vue';
 
+const beforeEnter = (_to: any, _from: any, next: any) => {
+  const isAuthenticated = window.localStorage.getItem(`${process.env.VUE_APP_SITENAME}_token`);
+
+  if (_to.name === 'Login' && isAuthenticated) {
+    next({ name: 'home' });
+    return;
+  }
+  if (isAuthenticated) {
+    next();
+    return;
+  }
+  next({ name: 'Login' });
+};
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     name: 'Login',
     component: Login,
+    beforeEnter,
+
   },
   {
     path: '/validate-code',
     name: 'validate-code',
     component: validateCode,
+    beforeEnter,
+
   },
   {
     path: '/',
     name: 'home',
-    redirect: '/dashboard',
-    component: HomeView,
+    component: () => import(/* webpackChunkName: "Home" */ '../views/HomeView.vue'),
+    beforeEnter,
     children: [
       {
         name: '/dashboard',
         path: '/dashboard',
-        component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue'),
+        component: () => import(/* webpackChunkName: "Dashboard" */ '../views/Dashboard.vue'),
         meta: {
           title: 'Dashboard',
         },

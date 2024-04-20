@@ -29,16 +29,22 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue';
+import { defineComponent, ref, inject } from 'vue';
+import { useRouter } from 'vue-router';
+import iStorage from '../../interfaces/Storage';
 
 export default defineComponent({
   setup() {
     const code = ref<string>('000114');
+    const Storage = inject<iStorage>('Storage');
+    const router = useRouter();
+
     const validateCode = async () => {
       const confirmation = await window.confirmationResult.confirm(code.value);
       if (confirmation) {
         const { user } = confirmation;
-        console.log(user);
+        Storage.set('token', user.accessToken);
+        router.push('/dashboard');
       }
     };
     return {
