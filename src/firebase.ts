@@ -1,7 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-import { getAuth, RecaptchaVerifier } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import iFirebase from '@/interfaces/Firebase';
+import { getFirestore } from 'firebase/firestore';
 
 declare global {
   interface Window {
@@ -26,8 +27,9 @@ const firebaseConfig: iFirebase = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 auth.languageCode = 'es';
-
+const db = getFirestore(app);
 export default {
   app,
   auth,
+  db,
 };

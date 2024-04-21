@@ -1,7 +1,7 @@
 <template>
   <div class="home__user-list">
     <ul class="home__user-list--listado">
-      <li :class="user.id==1 ? 'active' : '' " v-for="user in users" v-bind:key="user.id">
+      <li :class="index ? 'active' : '' " v-for="(user, index) in users" v-bind:key="index">
         <section class="user-description">
           <img :src="user.avatar" alt="" width="55" class="user-avatar">
           <div>
@@ -17,29 +17,37 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
+import iUser from '@/interfaces/User';
+import firebase from '@/firebase';
+import {
+  collection,
+  DocumentData,
+  getDocs,
+  QueryDocumentSnapshot,
+  QuerySnapshot,
+} from 'firebase/firestore';
 
 export default defineComponent({
   name: 'userListComponet',
   setup() {
-    const users = [
-      {
-        id: 1,
-        avatar: 'https://i.pravatar.cc/150?img=4',
-        date: '17 de abril de 2024, 4:44:51 p.m. UTC-4',
-        name: 'Froilan',
-        userId: '+58424531538',
-      },
-      {
-        id: 2,
-        avatar: 'https://i.pravatar.cc/150?img=4',
-        date: '17 de abril de 2024, 4:44:51 p.m. UTC-4',
-        name: 'Froilan',
-        userId: '+58424531538',
-      },
-    ];
+    const users = ref<iUser[]>([]);
+    const database = collection(firebase.db, 'Users');
+    const getUser = async (): Promise<void> => {
+      try {
+        const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(database);
+        querySnapshot.forEach((doc: QueryDocumentSnapshot<DocumentData>) => {
+          console.log(doc.data());
+        });
+      } catch (e) {
+        console.error('Error adding document: ', e);
+      }
+    };
+
+    getUser();
     return {
       users,
+      getUser,
     };
   },
 });
