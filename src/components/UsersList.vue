@@ -1,13 +1,21 @@
 <template>
   <div class="home__user-list">
     <ul class="home__user-list--listado">
-      <li :class="index ? 'active' : '' " v-for="(user, index) in users" v-bind:key="index">
+      <li
+        :class="
+        {
+          active: loggedPhone === user.userID
+        }"
+        v-for="(user, index) in users"
+        v-bind:key="index"
+        @click="getActive(user.userID)"
+      >
         <section class="user-description">
           <img :src="user.avatar" alt="" width="55" class="user-avatar">
           <div>
             <h4 class="user-name">{{user.name}}</h4>
             <h5>
-              mensagge
+              message
             </h5>
           </div>
         </section>
@@ -17,7 +25,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue';
+import {
+  computed,
+  defineComponent,
+  onMounted,
+  ref,
+} from 'vue';
+import { useStore } from 'vuex';
 import iUser from '@/interfaces/User';
 import firebase from '@/firebase';
 import {
@@ -29,25 +43,46 @@ import {
 } from 'firebase/firestore';
 
 export default defineComponent({
-  name: 'userListComponet',
+  name: 'userListComponent',
   setup() {
     const users = ref<iUser[]>([]);
     const database = collection(firebase.db, 'Users');
+    const store = useStore();
+    const loggedPhone = computed(() => store.state.userID);
     const getUser = async (): Promise<void> => {
       try {
         const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(database);
         querySnapshot.forEach((doc: QueryDocumentSnapshot<DocumentData>) => {
-          console.log(doc.data());
+          const {
+            avatar,
+            date,
+            name,
+            userID,
+          } = doc.data();
+          users.value.push({
+            avatar,
+            date,
+            name,
+            userID,
+            active: false,
+          });
         });
       } catch (e) {
         console.error('Error adding document: ', e);
       }
     };
-
-    getUser();
+    const getActive = (id: any): void => {
+      store.commit('setUserId', id);
+      store.dispatch('getMessages');
+    };
+    onMounted(async () => {
+      getUser();
+    });
     return {
       users,
+      loggedPhone,
       getUser,
+      getActive,
     };
   },
 });

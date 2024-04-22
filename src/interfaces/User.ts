@@ -1,8 +1,9 @@
 interface User {
   avatar: string,
-  data:string,
+  date:string,
   name: string,
   userID: string,
+  active: boolean,
 }
 
 export default User;

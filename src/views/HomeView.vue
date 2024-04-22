@@ -4,7 +4,9 @@
       <Search />
       <Users />
     </section>
-    <section class="messages">Messages</section>
+    <section class="messages">
+      <Messages />
+    </section>
     <!-- <router-view/> -->
   </div>
 </template>
@@ -12,6 +14,8 @@
 <script lang="ts">
 import SearchVue from '@/components/Search.vue';
 import UserListVue from '@/components/UsersList.vue';
+import MessageArea from '@/components/MessagesArea.vue';
+
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -19,6 +23,7 @@ export default defineComponent({
   components: {
     Search: SearchVue,
     Users: UserListVue,
+    Messages: MessageArea,
   },
 });
 </script>
