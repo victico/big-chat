@@ -1,42 +1,26 @@
 <template>
   <div class="otherLogged">
     <div class="otherLogged__message">
-     {{ msg }}
+     {{ msg.text }}
     </div>
   </div>
-  <!-- <div class="iLogged">
-    <div class="iLogged__message">
-      Hola, Bien y tu?
-    </div>
-  </div> -->
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  ref,
-} from 'vue';
-import { useStore } from 'vuex';
+import { defineComponent, PropType, toRefs } from 'vue';
 import iMessage from '@/interfaces/Message';
-import firebase from '@/firebase';
-import {
-  collection,
-  DocumentData,
-  getDocs,
-  QueryDocumentSnapshot,
-  QuerySnapshot,
-} from 'firebase/firestore';
 
 export default defineComponent({
   name: 'UserMessageComponent',
-  props: ['msg'],
-  setup() {
-    const messages = ref<iMessage[]>([]);
-    const database = collection(firebase.db, 'Messages');
-    const store = useStore();
-    // console.log(database);
+  props: {
+    msg: {
+      require: true,
+      default: Object as PropType<iMessage>,
+    },
+  },
+  setup(props) {
     return {
-
+      ...toRefs(props),
     };
   },
 });

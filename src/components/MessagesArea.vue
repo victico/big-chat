@@ -2,10 +2,10 @@
   <div class="home__message-area">
     <div class="chat">
       <div class="message-content">
-        <UserMessage v-for="(message, index) in getMessages" :key="index" :msg="message.text" />
+        <UserMessage v-for="(message, index) in getMessages" :key="index" :msg="message" />
       </div>
       <div class="write-message">
-
+        <WriteMessage />
       </div>
     </div>
   </div>
@@ -15,28 +15,23 @@
 import {
   defineComponent,
   computed,
-  onMounted,
   ref,
 } from 'vue';
 import { useStore } from 'vuex';
 import iMessage from '@/interfaces/Message';
-import firebase from '@/firebase';
 import UserMessage from './UserMessage.vue';
+import WriteMessage from './WriteMessage.vue';
 
 export default defineComponent({
   name: 'messagesAreaComponent',
   components: {
     UserMessage,
+    WriteMessage,
   },
   setup() {
     const messages = ref<iMessage[]>([]);
     const store = useStore();
     const getMessages = computed(() => store.state.messages);
-    // messages.value = getMessages;
-
-    onMounted(() => {
-      console.log('hola');
-    });
     return {
       messages,
       getMessages,
@@ -62,6 +57,6 @@ export default defineComponent({
   .write-message{
     height: 10vh;
     width: 100%;
-    background: #212121;
+    background: #181818;
   }
 </style>

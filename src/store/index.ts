@@ -5,11 +5,7 @@ import {
   query,
   where,
   orderBy,
-  limit,
-  DocumentData,
   getDocs,
-  QueryDocumentSnapshot,
-  QuerySnapshot,
 } from 'firebase/firestore';
 import iMessages from '@/interfaces/Message';
 
