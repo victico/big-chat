@@ -14,6 +14,7 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .home__search{
+  margin-top: 10px;
   input {
     padding: 10px;
     width: 95%;

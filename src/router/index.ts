@@ -4,30 +4,26 @@ import validateCode from '../components/Login/codeValidate.vue';
 
 const beforeEnter = (_to: any, _from: any, next: any) => {
   const isAuthenticated = window.localStorage.getItem(`${process.env.VUE_APP_SITENAME}_token`);
-
-  if (_to.name === 'Login' && isAuthenticated) {
-    next({ name: 'home' });
-    return;
-  }
   if (isAuthenticated) {
+    if (_to.name === 'Login') {
+      next({ name: 'home' });
+      return;
+    }
     next();
-    return;
+  } else {
+    next({ name: 'Login' });
   }
-  next({ name: 'Login' });
 };
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     name: 'Login',
     component: Login,
-    beforeEnter,
-
   },
   {
     path: '/validate-code',
     name: 'validate-code',
     component: validateCode,
-    beforeEnter,
 
   },
   {

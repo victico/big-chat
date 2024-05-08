@@ -16,7 +16,7 @@
         <div class="input-container">
           <div class="input-container__content d-flex justify-center">
             <label for="phone"></label>
-            <input type="text" id="phone" class="phone_number" v-model="code" >
+            <input type="text" id="phone" class="phone_number" placeholder="Ingresa tu codigo" v-model="code" >
           </div>
         </div>
         <div class="button-container">
@@ -30,20 +30,22 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, inject } from 'vue';
+import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import iStorage from '../../interfaces/Storage';
 
 export default defineComponent({
   setup() {
-    const code = ref<string>('000114');
+    const code = ref<string>();
     const Storage = inject<iStorage>('Storage');
     const router = useRouter();
-
+    const store = useStore();
     const validateCode = async () => {
       const confirmation = await window.confirmationResult.confirm(code.value);
       if (confirmation) {
         const { user } = confirmation;
         Storage.set('token', user.accessToken);
+        Storage.set('current_user', user.phoneNumber);
         router.push('/dashboard');
       }
     };

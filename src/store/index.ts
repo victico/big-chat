@@ -13,6 +13,7 @@ export default createStore({
   state: {
     userID: '' as string,
     messages: [] as iMessages[],
+    logged: window.localStorage.getItem('VICGRAM-CHAT_current_user').replace(/"/gi, ''),
   },
   getters: {
   },
@@ -23,12 +24,15 @@ export default createStore({
     setMessages(state: any, messages: iMessages[]) {
       state.messages = messages;
     },
+    setLogged(state: any, payload: string) {
+      state.logged = payload;
+    },
   },
   actions: {
     async getMessages({ commit, state }) {
       try {
         const database = collection(firebase.db, 'Menssages');
-        const getMessageQuery = query(database, where('userID', '==', state.userID), orderBy('date', 'asc'));
+        const getMessageQuery = query(database, where('userID', 'in', [state.userID, state.logged]), orderBy('date', 'asc'));
         const querySnapshot = await getDocs(getMessageQuery);
         const messages:iMessages[] = [];
         querySnapshot.forEach((doc) => {

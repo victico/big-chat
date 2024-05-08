@@ -12,6 +12,8 @@
     "firebase": "^10.11.0",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
+    "vue3-discordpicker": "^1.1.0",
+    "vue3-emoji-picker": "^1.1.8",
     "vuex": "^4.0.0"
   },
   "devDependencies": {

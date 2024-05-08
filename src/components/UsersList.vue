@@ -13,7 +13,7 @@
         <section class="user-description">
           <img :src="user.avatar" alt="" width="55" class="user-avatar">
           <div>
-            <h4 class="user-name">{{user.name}}</h4>
+            <h4 class="user-name">{{ user.userID == loggedPhonex ? 'Mis mensajes' : user.name }}</h4>
             <h5>
               message
             </h5>
@@ -49,6 +49,8 @@ export default defineComponent({
     const database = collection(firebase.db, 'Users');
     const store = useStore();
     const loggedPhone = computed(() => store.state.userID);
+    const loggedPhonex = window.localStorage.getItem('VICGRAM-CHAT_current_user').replace(/"/gi, '');
+
     const getUser = async (): Promise<void> => {
       try {
         const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(database);
@@ -81,6 +83,7 @@ export default defineComponent({
     return {
       users,
       loggedPhone,
+      loggedPhonex,
       getUser,
       getActive,
     };

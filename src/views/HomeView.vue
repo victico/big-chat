@@ -5,7 +5,9 @@
       <Users />
     </section>
     <section class="messages">
-      <Messages />
+      <Messages v-if="loggedPhone"/>
+      <no-chat v-else/>
+
     </section>
     <!-- <router-view/> -->
   </div>
@@ -15,8 +17,9 @@
 import SearchVue from '@/components/Search.vue';
 import UserListVue from '@/components/UsersList.vue';
 import MessageArea from '@/components/MessagesArea.vue';
-
-import { defineComponent } from 'vue';
+import NoSelectedChat from '@/components/NoSelectedChat.vue';
+import { useStore } from 'vuex';
+import { defineComponent, computed } from 'vue';
 
 export default defineComponent({
   name: 'HomeView',
@@ -24,6 +27,14 @@ export default defineComponent({
     Search: SearchVue,
     Users: UserListVue,
     Messages: MessageArea,
+    NoChat: NoSelectedChat,
+  },
+  setup() {
+    const store = useStore();
+    const loggedPhone = computed(() => store.state.userID);
+    return {
+      loggedPhone,
+    };
   },
 });
 </script>
