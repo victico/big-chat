@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkbig_chat"]=self["webpackChunkbig_chat"]||[]).push([[443],{4007:function(n,t,a){a.r(t),a.d(t,{default:function(){return b}});var u=a(3396);const c={class:"about"},e=(0,u._)("h1",null,"This is an about page",-1),r=[e];function s(n,t){return(0,u.wg)(),(0,u.iD)("div",c,r)}var i=a(89);const h={},o=(0,i.Z)(h,[["render",s]]);var b=o}}]);
+//# sourceMappingURL=about.e9168880.js.map
