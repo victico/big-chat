@@ -14,17 +14,27 @@ const beforeEnter = (_to: any, _from: any, next: any) => {
     next({ name: 'Login' });
   }
 };
+const login = (_to: any, _from: any, next: any) => {
+  const isAuthenticated = window.localStorage.getItem(`${process.env.VUE_APP_SITENAME}_token`);
+  if (isAuthenticated) {
+    next({ name: 'home' });
+  } else {
+    next();
+  }
+};
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     name: 'Login',
     component: Login,
+    beforeEnter: login,
   },
   {
     path: '/validate-code',
     name: 'validate-code',
     component: validateCode,
-
+    beforeEnter: login,
   },
   {
     path: '/',

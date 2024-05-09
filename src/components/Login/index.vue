@@ -280,7 +280,7 @@ export default defineComponent({
     const router = useRouter();
     const selectedCountry = ref<string>('VE');
     const phoneCode = ref<string>('+58');
-    const phoneNumber = ref<string>('4126069512');
+    const phoneNumber = ref<string>('');
     const searchCode = async (): Promise<void> => {
       try {
         const response: any = await fetch(`https://restcountries.com/v3.1/alpha/${selectedCountry.value}`);

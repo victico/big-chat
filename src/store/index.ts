@@ -13,7 +13,7 @@ export default createStore({
   state: {
     userID: '' as string,
     messages: [] as iMessages[],
-    logged: window.localStorage.getItem('VICGRAM-CHAT_current_user').replace(/"/gi, ''),
+    logged: window.localStorage.getItem('VICGRAM-CHAT_current_user') ?? '',
   },
   getters: {
   },

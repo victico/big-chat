@@ -5,6 +5,7 @@
       <Users />
     </section>
     <section class="messages">
+      <Logout />
       <Messages v-if="loggedPhone"/>
       <no-chat v-else/>
 
@@ -18,6 +19,7 @@ import SearchVue from '@/components/Search.vue';
 import UserListVue from '@/components/UsersList.vue';
 import MessageArea from '@/components/MessagesArea.vue';
 import NoSelectedChat from '@/components/NoSelectedChat.vue';
+import Logout from '@/components/Logout.vue';
 import { useStore } from 'vuex';
 import { defineComponent, computed } from 'vue';
 
@@ -28,6 +30,7 @@ export default defineComponent({
     Users: UserListVue,
     Messages: MessageArea,
     NoChat: NoSelectedChat,
+    Logout,
   },
   setup() {
     const store = useStore();
@@ -54,6 +57,9 @@ export default defineComponent({
       width: 75%;
       background: #181818;
       height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
   }
 </style>
